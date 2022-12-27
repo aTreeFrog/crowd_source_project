@@ -4,12 +4,26 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { Web3ReactProvider } from '@web3-react/core'
+import { Web3Provider } from "@ethersproject/providers";
+//import ReactDOM from 'react-dom';
+
+function getLibrary(provider) {
+  return new Web3Provider(provider);
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <Web3ReactProvider getLibrary={getLibrary}>
+    <App />
+  </Web3ReactProvider>
+);
+
 root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
-);
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
