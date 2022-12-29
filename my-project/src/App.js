@@ -30,13 +30,14 @@ const web3 = new Web3("ws://localhost:8545")
 const lockContract = new web3.eth.Contract(contractAbi, contractAddress);
 
 const App = () => {
-  const [newGreetings, setNewGreetings] = useState("");
-  const [greetings, setGreetings] = useState("")
-  const { activate, deactivate } = useWeb3React();
+  const [newGreetings, setNewGreetings, greetings, setGreetings] = useState("");
+  //const [greetings, setGreetings] = useState("")
+  //const { activate, deactivate } = useWeb3React();
 
   useEffect(() => async () => {
-    const greetMsg = await greetMe()
-    setGreetings(greetMsg);
+    setGreetings = await greetMe()
+    //setGreetings(greetMsg);
+    console.log('Hello! 111');
   }, [])
 
   const greetMe = async () => {
@@ -65,6 +66,9 @@ const App = () => {
           {greetings}
         </span>
       </h2>
+      <div>
+        hi!!!!!!!!!!!!!!
+      </div>
     </div>
   );
 }
