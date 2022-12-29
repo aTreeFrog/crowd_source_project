@@ -26,7 +26,13 @@ const Injected = new InjectedConnector({
 
 const currentTimestampInSeconds = Math.round(Date.now() / 1000);
 
-const latestProject = "";
+var projectData = {
+  projectName: "",
+  projectState: "",
+  projectOwner: "",
+  crowdData: ""
+};
+
 
 const web3 = new Web3("ws://localhost:8545")
 const lockContract = new web3.eth.Contract(contractAbi, contractAddress);
@@ -60,9 +66,21 @@ const App = () => {
       { from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' }
     )
 
-    latestProject = await lockContract.methods.obtainProjectDetails(1).call(
+    const lastProject = await lockContract.methods.obtainProjectDetails(1).call(
       { from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' }
     )
+
+    console.log(lastProject)
+
+    projectData = {
+      projectName: lastProject[0],
+      projectState: lastProject[1],
+      projectOwner: lastProject[2],
+      crowdData: lastProject[3]
+    };
+
+    console.log(projectData)
+
 
 
 
@@ -80,12 +98,17 @@ const App = () => {
       <h2>
         Project Data:
         <span style={{ color: "blueviolet" }}>
-          {latestProject}
+          <div>
+            Name: {projectData.projectName}
+          </div>
+          <div>
+            Owner Address: {projectData.projectOwner}
+          </div>
+          <div>
+            Participants: {projectData.crowdData}
+          </div>
         </span>
       </h2>
-      <div>
-        hi!!!!!!!!!!!!!!
-      </div>
     </div>
   );
 }
