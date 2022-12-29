@@ -55,6 +55,13 @@ contract Lock is Ownable {
         projectIds.push(prjId); // push id into new array. Not sure how to use yet.
     }
 
+    function obtainProjectDetails(
+        uint256 prjId
+    ) public view returns (projectInfo memory) {
+        projectInfo storage grabProject = projects[prjId];
+        return grabProject;
+    }
+
     // Payable constructor can receive Ether
     function withdraw() public {
         // Uncomment this line, and the import of "hardhat/console.sol", to print a log in your terminal

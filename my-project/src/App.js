@@ -26,18 +26,21 @@ const Injected = new InjectedConnector({
 
 const currentTimestampInSeconds = Math.round(Date.now() / 1000);
 
+const latestProject = "";
+
 const web3 = new Web3("ws://localhost:8545")
 const lockContract = new web3.eth.Contract(contractAbi, contractAddress);
 
 const App = () => {
-  const [newGreetings, setNewGreetings, greetings, setGreetings] = useState("");
+  const [greetings, setGreetings] = useState("");
   //const [greetings, setGreetings] = useState("")
   //const { activate, deactivate } = useWeb3React();
 
   useEffect(() => async () => {
-    setGreetings = await greetMe()
-    //setGreetings(greetMsg);
-    console.log('Hello! 111');
+    const greetMsg = await greetMe();
+    console.log(`this is initial greetMsg: ${greetMsg}`);
+    setGreetings("Type Project Name");
+    //await updateGreets();
   }, [])
 
   const greetMe = async () => {
@@ -46,24 +49,37 @@ const App = () => {
   }
 
   const updateGreets = async () => {
-    const greetMsg = await lockContract.methods.setGreeting(newGreetings).send(
+    const greetMsg = await lockContract.methods.setGreeting(greetings).send(
       { from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' }
     )
-    setGreetings(await greetMe())
   }
+
+  const createProject = async () => {
+    await lockContract.methods.createProject(greetings, 1).send(
+      { from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' }
+    )
+
+    latestProject = await lockContract.methods.obtainProjectDetails(1).send(
+      { from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' }
+    )
+
+
+
+  }
+
 
   return (
     <div className="App">
-      <input placeholder="New greetings" type="text" value={newGreetings}
-        onChange={(e) => setNewGreetings(e.target.value)}
+      <input placeholder="Type Project Name" type="text" value={greetings}
+        onChange={(e) => setGreetings(e.target.value)}
       />
-      <button onClick={() => updateGreets()}>
+      <button onClick={() => createProject()}>
         Update Greetings
       </button>
       <h2>
-        Current Greetings:
+        Project Data:
         <span style={{ color: "blueviolet" }}>
-          {greetings}
+          {latestProject}
         </span>
       </h2>
       <div>
