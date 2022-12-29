@@ -18,6 +18,7 @@ To Build:
 1. start a terminal and change to crowd_source_project folder
 2. in that terminal run: npx hardhat node 
 Note: that will create a bunch of user accounts for etherium with 1000Ether
+Note: It might at the bottom give you the contract address. If so, skip to step 5 with that value.
 3. in another terminal, change directy to crowd_source_project
 4. in that terminal run: npx hardhat run scripts/deploy.ts --network localhost.
 Note: that will deploy the lock contract and there is a log which will give you the lock contract address.
