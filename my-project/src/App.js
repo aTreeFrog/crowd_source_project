@@ -30,6 +30,7 @@ const latestProject = "";
 
 const web3 = new Web3("ws://localhost:8545")
 const lockContract = new web3.eth.Contract(contractAbi, contractAddress);
+console.log(lockContract.methods)
 
 const App = () => {
   const [greetings, setGreetings] = useState("");
@@ -59,7 +60,7 @@ const App = () => {
       { from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' }
     )
 
-    latestProject = await lockContract.methods.obtainProjectDetails(1).send(
+    latestProject = await lockContract.methods.obtainProjectDetails(1).call(
       { from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' }
     )
 
