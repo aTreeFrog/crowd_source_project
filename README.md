@@ -14,6 +14,9 @@ npx hardhat run scripts/deploy.ts
 
 Used following website to get started: https://medium.com/coinmonks/build-a-web-3-application-with-solidity-hardhat-react-and-web3js-61b7ff137885
 
+Tips:
+- after you compile your solidity file. You must copy the Lock.json file from the contracts/Lock.sol folder and paste it in the my-project/src/utils/Lock.Json file there in order to update.
+
 To Build:
 1. start a terminal and change to crowd_source_project folder
 2. in that terminal run: npx hardhat node 
@@ -26,4 +29,6 @@ Note: that will deploy the lock contract and there is a log which will give you 
 6. in another terminal, change directory to crowd_source_project/my-project
 7. in that terminal, run: npm start
 Note: that will run the react App.js script
+
+
 
