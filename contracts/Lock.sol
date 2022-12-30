@@ -32,7 +32,7 @@ contract Lock is Ownable {
     // object for each user who participates in a project
     struct projectUser {
         address projectContributer;
-        uint16 ethAmount;
+        string ethAmount;
     }
 
     // object for every project that gets created
@@ -40,17 +40,28 @@ contract Lock is Ownable {
         string projectName;
         ProjectState projectState; // type enum
         address projectOwner;
-        projectUser[] CrowdData;
+        projectUser[] crowdData;
     }
 
     mapping(uint256 => projectInfo) projects;
+    mapping(address => projectUser) users;
     uint256[] public projectIds;
 
-    function createProject(string memory prjName, uint256 prjId) public {
+    function createProject(
+        string memory prjName,
+        uint256 prjId
+    ) public payable {
         projectInfo storage newProject = projects[prjId];
         newProject.projectName = prjName;
         newProject.projectState = ProjectState.INIT;
         newProject.projectOwner = msg.sender; // person who does call is owner.
+
+        projectUser storage newProjectUser = users[msg.sender]; //creates mapping for easier updates
+
+        newProjectUser.projectContributer = msg.sender;
+        newProjectUser.ethAmount = "1"; //ToDo: must be from app sayin amount
+
+        newProject.crowdData.push(newProjectUser);
 
         projectIds.push(prjId); // push id into new array. Not sure how to use yet.
     }
@@ -60,6 +71,28 @@ contract Lock is Ownable {
     ) public view returns (projectInfo memory) {
         projectInfo storage grabProject = projects[prjId];
         return grabProject;
+    }
+
+    function updateContributerAmount(
+        uint256 prjId,
+        string memory ethAdded
+    ) public payable {
+        projectInfo storage grabProject = projects[prjId];
+        bool found = false;
+        for (uint i = 0; i < grabProject.crowdData.length; i++) {
+            if (grabProject.crowdData[i].projectContributer == msg.sender) {
+                grabProject.crowdData[i].ethAmount = ethAdded; //need to add the existing with this. Must add string numbers together
+                found = true;
+                break;
+            }
+        }
+
+        if (found == false) {
+            projectUser memory newUser = users[msg.sender];
+            newUser.projectContributer = msg.sender;
+            newUser.ethAmount = ethAdded;
+            grabProject.crowdData.push(newUser);
+        }
     }
 
     // Payable constructor can receive Ether
