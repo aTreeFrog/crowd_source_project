@@ -8,22 +8,8 @@ import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { useWeb3React } from '@web3-react/core'
 import { BigNumber } from 'ethers';
+import { connectWallet, getCurrentWalletConnected, mintNFT } from "./utils/interact.js";
 
-const CoinbaseWallet = new WalletLinkConnector({
-  url: `https://mainnet.infura.io/v3/${process.env.INFURA_KEY}`,
-  appName: "Web3-react Demo",
-  supportedChainIds: [1, 3, 4, 5, 42],
-});
-
-const WalletConnect = new WalletConnectConnector({
-  rpcUrl: `https://mainnet.infura.io/v3/${process.env.INFURA_KEY}`,
-  bridge: "https://bridge.walletconnect.org",
-  qrcode: true,
-});
-
-const Injected = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5, 42]
-});
 
 const currentTimestampInSeconds = Math.round(Date.now() / 1000);
 
@@ -34,7 +20,6 @@ var projectData = {
   crowdData: ""
 };
 
-
 const web3 = new Web3("ws://localhost:8545")
 const lockContract = new web3.eth.Contract(contractAbi, contractAddress);
 console.log(lockContract.methods)
@@ -42,6 +27,8 @@ console.log(lockContract.methods)
 const App = () => {
   const [greetings, setGreetings] = useState("");
   const [ethAmount, setEthAmount] = useState("");
+  const [walletAddress, setWallet] = useState("");
+  const [status, setStatus] = useState("");
   //const [greetings, setGreetings] = useState("")
   //const { activate, deactivate } = useWeb3React();
 
@@ -62,6 +49,12 @@ const App = () => {
       { from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' }
     )
   }
+
+  const connectWalletPressed = async () => {
+    const walletResponse = await connectWallet();
+    setStatus(walletResponse.status);
+    setWallet(walletResponse.address);
+  };
 
   const createProject = async () => {
     await lockContract.methods.createProject(greetings, 1).send(
@@ -120,6 +113,19 @@ const App = () => {
 
   return (
     <div className="App">
+      <button id="walletButton" onClick={connectWalletPressed}>
+        {walletAddress.length > 0 ? (
+          "Connected: " +
+          String(walletAddress).substring(0, 6) +
+          "..." +
+          String(walletAddress).substring(38)
+        ) : (
+          <span>Connect Wallet</span>
+        )}
+      </button>
+      <p id="status">
+        {status}
+      </p>
       <input placeholder="Type Project Name" type="text" value={greetings}
         onChange={(e) => setGreetings(e.target.value)}
       />
