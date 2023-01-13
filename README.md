@@ -33,6 +33,8 @@ Note: that will run the react App.js script
 TESTING SANDBOX
 1. Need to make .env file work. in my-project folder, run: npm install dotenv --save  
 
+and run: npm install dotenv-webpack --save-dev
+
 2. need to make alchemy wrapper work (which is wrapper to web3 for connecting to smart contracts. Look at interact.js and this link for more info: https://docs.alchemy.com/docs/how-to-create-an-nft).  
 
 run: npm install @alch/alchemy-web3
@@ -44,3 +46,9 @@ run: npm install @alch/alchemy-web3
 basically followed this webstite to fix webpack issue with alchemy. https://www.alchemy.com/blog/how-to-polyfill-node-core-modules-in-webpack-5
 
 5.ToDo: for the nft contracts. run this to get the nft contracts you can import: npm install @openzeppelin/contracts
+
+6. actually had to remove these lins in my react code.
+
+require('dotenv').config();
+
+react already has that built in and adding this messes things up. So I commented it out everywhere. 

@@ -1,5 +1,7 @@
 //grabbed from .env file
-require('dotenv').config();
+
+//Don't need this require dotenv in react apps. it wont work actually if you put it in.
+//require('dotenv').config();
 const key = process.env.REACT_APP_PINATA_KEY;
 const secret = process.env.REACT_APP_PINATA_SECRET;
 
