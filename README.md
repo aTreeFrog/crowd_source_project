@@ -33,6 +33,14 @@ Note: that will run the react App.js script
 TESTING SANDBOX
 1. Need to make .env file work. in my-project folder, run: npm install dotenv --save  
 
-2. need to make alchemy wrapper work (which is wrapper to web3 for connecting to smart contracts. Look at interact.js and this link for more info: https://docs.alchemy.com/docs/how-to-create-an-nft).  run: npm install @alch/alchemy-web3
+2. need to make alchemy wrapper work (which is wrapper to web3 for connecting to smart contracts. Look at interact.js and this link for more info: https://docs.alchemy.com/docs/how-to-create-an-nft).  
 
+run: npm install @alch/alchemy-web3
 
+3. had to install assert. run: npm install assert
+
+4. ran this: npm install --save-dev react-app-rewired crypto-browserify stream-browserify assert stream-http https-browserify os-browserify url buffer process
+
+basically followed this webstite to fix webpack issue with alchemy. https://www.alchemy.com/blog/how-to-polyfill-node-core-modules-in-webpack-5
+
+5.ToDo: for the nft contracts. run this to get the nft contracts you can import: npm install @openzeppelin/contracts
