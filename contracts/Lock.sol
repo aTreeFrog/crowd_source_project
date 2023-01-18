@@ -17,6 +17,7 @@ contract Lock is Ownable {
 
     event Withdrawal(uint amount, uint when);
 
+    //enums aren't good in solidity. try using integers instead
     enum ProjectState {
         INIT,
         ACTIVE,
@@ -93,6 +94,10 @@ contract Lock is Ownable {
             newUser.ethAmount = ethAdded;
             grabProject.crowdData.push(newUser);
         }
+    }
+
+    function deposit() public payable {
+        require(msg.value > 0, "Cannot deposit zero or negative Ether.");
     }
 
     // Payable constructor can receive Ether

@@ -52,3 +52,26 @@ basically followed this webstite to fix webpack issue with alchemy. https://www.
 require('dotenv').config();
 
 react already has that built in and adding this messes things up. So I commented it out everywhere. 
+
+Also, got to make sure all environmental variables start with REACT_APP_  otherwise js won't work properly. 
+
+7. for the contract side, have to get hardhat to run on the goerli network. I updated the hardhat.config.ts file to support goerli.  and used a .env file that contained the needed info. 
+
+I also had to run: npm install --save @types/node  
+
+this helps get .env to work.
+
+trying to make this command work: npx hardhat run scripts/deploy.ts --network goerli
+
+this gets the contracts running in the goerli network (using the deploy.ts that came with hardhat). Then we can call this contract with npm start.
+
+this helped me setup hardhat config for goerli: https://hardhat.org/hardhat-runner/docs/config
+
+remember to add funds to your accunt from this website: https://goerlifaucet.com/
+
+
+had to add "type": "module" in the package.json inside the src folder in order to allow imports to work using this hardhat build method. 
+
+8. setting gas price in the hardhat config so metamask can know what it will be in your contract. 
+
+followed this site for tips: https://medium.com/klaytn/using-ethereum-tools-in-klaytn-dc068d48de04

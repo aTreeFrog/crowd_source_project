@@ -81,7 +81,7 @@ export const mintNFT = async (url, name, description) => {
         'data': window.contract.methods.mintNFT(window.ethereum.selectedAddress, tokenURI).encodeABI() //make call to NFT smart contract 
     };
 
-    //sign transaction via Metamask
+    //sign transaction via Metamask`
     try {
         const txHash = await window.ethereum
             .request({
@@ -90,7 +90,7 @@ export const mintNFT = async (url, name, description) => {
             });
         return {
             success: true,
-            status: "✅ Check out your transaction on Etherscan: https://ropsten.etherscan.io/tx/" + txHash
+            status: "✅ Check out your transaction on Etherscan: https://goerli.etherscan.io/tx/" + txHash
         }
     } catch (error) {
         return {
