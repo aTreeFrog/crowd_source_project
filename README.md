@@ -12,6 +12,12 @@ npx hardhat node
 npx hardhat run scripts/deploy.ts
 ```
 
+also had to ensure I ran: npx hardhat compile  to generate the abi.json
+
+I had to copy the abi data which got put in the artifacts directory.
+
+I followed here: https://hardhat.org/hardhat-runner/docs/guides/compile-contracts
+
 Used following website to get started: https://medium.com/coinmonks/build-a-web-3-application-with-solidity-hardhat-react-and-web3js-61b7ff137885
 
 Tips:
@@ -70,8 +76,9 @@ this helped me setup hardhat config for goerli: https://hardhat.org/hardhat-runn
 remember to add funds to your accunt from this website: https://goerlifaucet.com/
 
 
-had to add "type": "module" in the package.json inside the src folder in order to allow imports to work using this hardhat build method. 
-
 8. setting gas price in the hardhat config so metamask can know what it will be in your contract. 
 
 followed this site for tips: https://medium.com/klaytn/using-ethereum-tools-in-klaytn-dc068d48de04
+
+
+DON'T FORGET TO UPDATE THE LOCK.JSON file anytime you make changes to a soldity contract. 

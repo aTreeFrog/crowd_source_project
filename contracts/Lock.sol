@@ -96,6 +96,7 @@ contract Lock is Ownable {
         }
     }
 
+    // functon to accept payment from external/public accounts
     function deposit() public payable {
         require(msg.value > 0, "Cannot deposit zero or negative Ether.");
     }
