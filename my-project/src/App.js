@@ -16,6 +16,7 @@ const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey);
 
+
 var projectData = {
   projectName: "",
   projectState: "",
@@ -36,7 +37,6 @@ const App = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [url, setURL] = useState("");
-  //const [greetings, setGreetings] = useState("")
   //const { activate, deactivate } = useWeb3React();
 
   useEffect(() => async () => {
@@ -82,24 +82,14 @@ const App = () => {
 
     console.log("made it past createProject part 1")
 
-    // console.log(window.ethereum)
-
-    // const txHash = await window.ethereum
-    //   .request({
-    //     method: 'eth_sendTransaction',
-    //     params: [myProject],
-    //   });
-
-    // setStatus("✅ Check out your pay project transaction on Etherscan: https://goerli.etherscan.io/tx/" + txHash);
-
-    // await lockContract.methods.createProject(greetings, 1).send(
-    //   { from: walletAddress }
-    // )
-
     console.log("HI THERE")
 
+
+
     const lastProject = await lockContract.methods.obtainProjectDetails(1).call(
-      { from: walletAddress }
+      {
+        from: walletAddress,
+      }
     )
 
     console.log(lastProject)
@@ -135,30 +125,41 @@ const App = () => {
       });
       setStatus(`Transaction sent! Hash: ${sendTransaction.transactionHash}`);
 
-      // update amount user provided in project
-      //   try {
+      //ToDo: Figure out way that if this or paying fails, it doesnt create any false updates..
+      const contributeMoney = {
+        to: contractAddress, // Required except during contract publications.
+        from: walletAddress,
+        'data': await lockContract.methods.updateContributerAmount(1, (amount))
+      }
+      setStatus(`Transaction sent! Hash: " +${sendTransaction.transactionHash}`,
+        "✅ Check out your pay project transaction on Etherscan: https://goerli.etherscan.io/tx/" + contributeMoney.transactionHash);
 
-      //     const payProjectTransactionParameters = {
-      //       to: contractAddress, // Required except during contract publications.
-      //       from: walletAddress, // must match user's active address.
-      //       'data': await lockContract.methods.updateContributerAmount(id, amount) //make call to smart contract 
-      //     };
+      const lastProject = await lockContract.methods.obtainProjectDetails(1).call(
+        { from: walletAddress }
+      )
 
-      //     //sign transaction via Metamask
-      //     const txHash = await window.ethereum
-      //       .request({
-      //         method: 'eth_sendTransaction',
-      //         params: [payProjectTransactionParameters],
-      //       });
-      //     setStatus("✅ Check out your pay project transaction on Etherscan: https://goerli.etherscan.io/tx/" + txHash);
-      //   }
-      //   catch (error) {
-      //     setStatus("😥 Something went wrong: " + error.message)
-      //   }
+      console.log(lastProject)
+
+      projectData = {
+        projectName: lastProject[0],
+        projectState: lastProject[1],
+        projectOwner: lastProject[2],
+        crowdData: lastProject[3]
+      };
+
+      console.log(projectData)
+
+
     }
     catch (error) {
       setStatus(`Error sending transaction: ${error.message}`);
     }
+
+    //update contribution amount for that user in object
+
+
+
+
   }
 
   //ToDo: sending eth to this contract is creating error. Must figure out why.
