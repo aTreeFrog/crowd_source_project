@@ -21,7 +21,7 @@ var projectData = {
   projectName: "",
   projectState: "",
   projectOwner: "",
-  crowdData: ""
+  crowdData: []
 };
 
 //const web3 = new Web3("ws://localhost:8545")
@@ -67,11 +67,17 @@ const App = () => {
 
     try {
 
-      const myProject = {
-        to: contractAddress, // Required except during contract publications.
-        from: walletAddress,
-        'data': await lockContract.methods.createProject(greetings, 1)
-      }
+      const myProject = await lockContract.methods.createProject(greetings, 2).send(
+        {
+          from: walletAddress,
+        }
+      )
+
+      // const myProject = {
+      //   to: contractAddress, // Required except during contract publications.
+      //   from: walletAddress,
+      //   'data': await lockContract.methods.createProject(greetings, 2).send
+      // }
       setStatus("✅ Check out your pay project transaction on Etherscan: https://goerli.etherscan.io/tx/" + myProject.transactionHash);
 
     }
@@ -86,7 +92,7 @@ const App = () => {
 
 
 
-    const lastProject = await lockContract.methods.obtainProjectDetails(1).call(
+    const lastProject = await lockContract.methods.obtainProjectDetails(greetings).call(
       {
         from: walletAddress,
       }
@@ -126,15 +132,17 @@ const App = () => {
       setStatus(`Transaction sent! Hash: ${sendTransaction.transactionHash}`);
 
       //ToDo: Figure out way that if this or paying fails, it doesnt create any false updates..
-      const contributeMoney = {
-        to: contractAddress, // Required except during contract publications.
-        from: walletAddress,
-        'data': await lockContract.methods.updateContributerAmount(1, (amount))
-      }
+      const contributeMoney = await lockContract.methods.updateContributerAmount(greetings, (amount)).send(
+        {
+          from: walletAddress,
+        }
+      );
+
+
       setStatus(`Transaction sent! Hash: " +${sendTransaction.transactionHash}`,
         "✅ Check out your pay project transaction on Etherscan: https://goerli.etherscan.io/tx/" + contributeMoney.transactionHash);
 
-      const lastProject = await lockContract.methods.obtainProjectDetails(1).call(
+      const lastProject = await lockContract.methods.obtainProjectDetails(greetings).call(
         { from: walletAddress }
       )
 

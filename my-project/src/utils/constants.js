@@ -7,4 +7,4 @@ export const contractAbi = Lock.abi;
 // to run that script use: npx hardhat run scripts/deploy.ts --network localhost
 //export const contractAddress = '0x0165878A594ca255338adfa4d48449f69242Eb8F';
 //export const contractAddress = '0x94c2780D505f135842eAa73aee5c3292212c8C2B';
-export const contractAddress = '0xbd68133f9fb419D8610Abc8A021f848ec31f9d97';
+export const contractAddress = '0x5089d7f01E31510AFc66fF99d1051F3481C37E6a';

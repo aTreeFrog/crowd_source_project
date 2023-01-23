@@ -44,7 +44,7 @@ contract Lock is Ownable {
         projectUser[] crowdData;
     }
 
-    mapping(uint256 => projectInfo) projects;
+    mapping(string => projectInfo) projects;
     mapping(address => projectUser) users;
     uint256[] public projectIds;
 
@@ -52,7 +52,7 @@ contract Lock is Ownable {
         string memory prjName,
         uint256 prjId
     ) public payable {
-        projectInfo storage newProject = projects[prjId];
+        projectInfo storage newProject = projects[prjName];
         newProject.projectName = prjName;
         newProject.projectState = ProjectState.INIT;
         newProject.projectOwner = msg.sender; // person who does call is owner.
@@ -68,17 +68,17 @@ contract Lock is Ownable {
     }
 
     function obtainProjectDetails(
-        uint256 prjId
+        string memory prjName
     ) public view returns (projectInfo memory) {
-        projectInfo storage grabProject = projects[prjId];
+        projectInfo storage grabProject = projects[prjName];
         return grabProject;
     }
 
     function updateContributerAmount(
-        uint256 prjId,
+        string memory prjName,
         string memory ethAdded
     ) public payable {
-        projectInfo storage grabProject = projects[prjId];
+        projectInfo storage grabProject = projects[prjName];
         bool found = false;
         for (uint i = 0; i < grabProject.crowdData.length; i++) {
             if (grabProject.crowdData[i].projectContributer == msg.sender) {
