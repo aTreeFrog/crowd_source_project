@@ -65,13 +65,22 @@ const App = () => {
 
   const createProject = async () => {
 
-    // const myProject = {
-    //   to: contractAddress, // Required except during contract publications.
-    //   from: walletAddress,
-    //   'data': await lockContract.methods.createProject(greetings, 1)
-    // }
+    try {
 
-    // console.log("made it past createProject part 1")
+      const myProject = {
+        to: contractAddress, // Required except during contract publications.
+        from: walletAddress,
+        'data': await lockContract.methods.createProject(greetings, 1)
+      }
+      setStatus("✅ Check out your pay project transaction on Etherscan: https://goerli.etherscan.io/tx/" + myProject.transactionHash);
+
+    }
+    catch (error) {
+      setStatus(`Error sending transaction: ${error.message}`);
+    }
+
+
+    console.log("made it past createProject part 1")
 
     // console.log(window.ethereum)
 
@@ -83,9 +92,9 @@ const App = () => {
 
     // setStatus("✅ Check out your pay project transaction on Etherscan: https://goerli.etherscan.io/tx/" + txHash);
 
-    await lockContract.methods.createProject(greetings, 1).send(
-      { from: walletAddress }
-    )
+    // await lockContract.methods.createProject(greetings, 1).send(
+    //   { from: walletAddress }
+    // )
 
     console.log("HI THERE")
 
