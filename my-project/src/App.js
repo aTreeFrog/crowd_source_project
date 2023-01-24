@@ -9,6 +9,18 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { useWeb3React } from '@web3-react/core'
 import { BigNumber } from 'ethers';
 import { connectWallet, getCurrentWalletConnected, mintNFT } from "./utils/interact.js";
+import React from 'react';
+import './App.css';
+import { Navbar, Navbar2 } from './components/Navbar';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages';
+import About from './pages/about';
+import Events from './pages/events';
+import AnnualReport from './pages/annual';
+import Teams from './pages/team';
+import Blogs from './pages/blogs';
+import SignUp from './pages/signup';
+
 
 
 const currentTimestampInSeconds = Math.round(Date.now() / 1000);
@@ -204,7 +216,21 @@ const App = () => {
 
 
   return (
+
     <div className="App">
+      <Router>
+        <Navbar />
+        <Navbar2 />
+        <Routes>
+          <Route path='/' exact element={<Home />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/events' element={<Events />} />
+          <Route path='/annual' element={<AnnualReport />} />
+          <Route path='/team' element={<Teams />} />
+          <Route path='/blogs' element={<Blogs />} />
+          <Route path='/sign-up' element={<SignUp />} />
+        </Routes>
+      </Router>
       <button id="walletButton" onClick={connectWalletPressed}>
         {walletAddress.length > 0 ? (
           "Connected: " +

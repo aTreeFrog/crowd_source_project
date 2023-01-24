@@ -82,3 +82,17 @@ followed this site for tips: https://medium.com/klaytn/using-ethereum-tools-in-k
 
 
 DON'T FORGET TO UPDATE THE LOCK.JSON file anytime you make changes to a soldity contract. 
+
+
+9. REACT NAVBAR work
+
+using this website to learn and get started: https://www.geeksforgeeks.org/create-a-responsive-navbar-using-reactjs/
+
+from that website instructions, had to also run: npm install react-icons --save
+
+and in app.js, had to use element= instead of component= since component no longer works. https://stackoverflow.com/questions/69854011/matched-leaf-route-at-location-does-not-have-an-element
+
+also, had to wrap the function with <const/>  like shown below:
+<Route path='/about' element={<About />} />
+
+
