@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Home = () => {
+const MyProjects = () => {
     return (
         <div
             style={{
@@ -10,9 +10,9 @@ const Home = () => {
                 //height: '100vh'
             }}
         >
-            <h1>Welcome to GeeksforGeeks</h1>
+            <h1>GeeksforGeeks is a Computer Science portal for geeks.</h1>
         </div>
     );
 };
 
-export default Home;
+export default MyProjects;

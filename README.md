@@ -93,6 +93,14 @@ from that website instructions, had to also run: npm install react-icons --save
 and in app.js, had to use element= instead of component= since component no longer works. https://stackoverflow.com/questions/69854011/matched-leaf-route-at-location-does-not-have-an-element
 
 also, had to wrap the function with <const/>  like shown below:
-<Route path='/about' element={<About />} />
+//<Route path='/about' element={<About />} />//
 
+10. Search bar
+also adding search bar by following this github account: https://github.com/machadop1407/React-Search-Bar 
 
+and website: https://www.youtube.com/watch?v=x7niho285qs
+
+in order to get some search icons to work had to download a couple packages but they had issues so had to first run the following:
+
+npm config set legacy-peer-deps true
+npm i

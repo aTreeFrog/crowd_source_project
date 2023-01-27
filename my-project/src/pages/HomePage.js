@@ -1,18 +1,18 @@
 import React from 'react';
 
-const Teams = () => {
+const HomePage = () => {
     return (
         <div
             style={{
                 display: 'flex',
-                justifyContent: 'Right',
-                alignItems: 'Right',
+                justifyContent: 'Center',
+                alignItems: 'Center',
                 //height: '100vh'
             }}
         >
-            <h1>Welcome to GeeksforGeeks Team</h1>
+            <h1>EASY WEB3 CROWDFOUNDING</h1>
         </div>
     );
 };
 
-export default Teams;
+export default HomePage;

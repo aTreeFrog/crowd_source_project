@@ -6,42 +6,57 @@ import {
     NavMenu,
     NavBtn,
     NavBtnLink,
+    WalletButton,
+    NavGenericLink
 } from './NavbarElements';
 
 import logo from '../../logo.svg';
+import { connectWallet, getCurrentWalletConnected } from "../../utils/interact.js";
+import { useEffect, useState } from 'react';
+import "./SearchBar.css";
+import SearchIcon from "@material-ui/icons/Search";
+
+
 
 //I think this creates the /about to the websight page. So it opens a new page which is cool. 
 export const Navbar = () => {
+    const [walletAddress, setWallet] = useState("");
+    const [searchValue, setSearch] = useState("");
+
+    const connectWalletPressed = async () => {
+
+        const walletResponse = await connectWallet();
+        setWallet(walletResponse.address);
+    };
+
     return (
         <>
             <Nav>
-                <img style={{ width: '100px', height: '50px' }} src={logo} className="App-logo" alt="logo" />
+                <NavGenericLink to=''>
+                    <img style={{ width: '100px', height: '50px' }} src={logo} className="App-logo" alt="logo" />
+                </NavGenericLink>
                 <Bars />
+                <div className="search">
+                    <div className="searchInputs">
+                        <input type="text" placeholder="search" />
+                        <div className="searchIcon">
+                            <SearchIcon />
+                        </div>
+                    </div>
+                </div>
 
-                <NavMenu>
-                    <NavLink to='/about' activeStyle>
-                        About
-                    </NavLink>
-                    <NavLink to='/events' activeStyle>
-                        Events
-                    </NavLink>
-                    <NavLink to='/annual' activeStyle>
-                        Annual Report
-                    </NavLink>
-                    <NavLink to='/team' activeStyle>
-                        Teams
-                    </NavLink>
-                    <NavLink to='/blogs' activeStyle>
-                        Blogs
-                    </NavLink>
-                    <NavLink to='/sign-up' activeStyle>
-                        Sign Up
-                    </NavLink>
-                    {/* Second Nav */}
-                    {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
-                </NavMenu>
-                <NavBtn>
-                    <NavBtnLink to='/signin'>Sign In</NavBtnLink>
+                <NavGenericLink to='/createprojectpage'>
+                    <NavBtn >Create Project </NavBtn>
+                </NavGenericLink>
+                <NavBtn onClick={connectWalletPressed}>
+                    {walletAddress.length > 0 ? (
+                        "Connected: " +
+                        String(walletAddress).substring(0, 6) +
+                        "..." +
+                        String(walletAddress).substring(38)
+                    ) : (
+                        <span>Connect Wallet</span>
+                    )}
                 </NavBtn>
             </Nav>
         </>
@@ -55,30 +70,21 @@ export const Navbar2 = () => {
                 <Bars />
 
                 <NavMenu>
-                    <NavLink to='/about' activeStyle>
-                        About
+                    <NavLink to='/myprojects' activeStyle>
+                        My Projects
                     </NavLink>
-                    <NavLink to='/events' activeStyle>
-                        Events
+                    <NavLink to='/trending' activeStyle>
+                        Trending
                     </NavLink>
-                    <NavLink to='/annual' activeStyle>
-                        Annual Report
+                    <NavLink to='/new' activeStyle>
+                        New
                     </NavLink>
-                    <NavLink to='/team' activeStyle>
-                        Teams
-                    </NavLink>
-                    <NavLink to='/blogs' activeStyle>
-                        Blogs
-                    </NavLink>
-                    <NavLink to='/sign-up' activeStyle>
-                        Sign Up
+                    <NavLink to='/all' activeStyle>
+                        All
                     </NavLink>
                     {/* Second Nav */}
                     {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
                 </NavMenu>
-                <NavBtn>
-                    <NavBtnLink to='/signin'>Sign In</NavBtnLink>
-                </NavBtn>
             </Nav>
         </>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SignUp = () => {
+const Trending = () => {
     return (
         <div
             style={{
@@ -10,9 +10,9 @@ const SignUp = () => {
                 //height: '100vh'
             }}
         >
-            <h1>Sign Up</h1>
+            <h1>Annual Report</h1>
         </div>
     );
 };
 
-export default SignUp;
+export default Trending;

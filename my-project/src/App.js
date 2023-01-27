@@ -13,13 +13,13 @@ import React from 'react';
 import './App.css';
 import { Navbar, Navbar2 } from './components/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages';
-import About from './pages/about';
-import Events from './pages/events';
-import AnnualReport from './pages/annual';
-import Teams from './pages/team';
-import Blogs from './pages/blogs';
-import SignUp from './pages/signup';
+//import Home from './pages';
+import All from './pages/All';
+import MyProjects from './pages/MyProjects';
+import New from './pages/New';
+import Trending from './pages/Trending';
+import CreateProjectPage from './pages/CreateProjectPage';
+import HomePage from './pages/HomePage';
 
 
 
@@ -222,13 +222,12 @@ const App = () => {
         <Navbar />
         <Navbar2 />
         <Routes>
-          <Route path='/' exact element={<Home />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/events' element={<Events />} />
-          <Route path='/annual' element={<AnnualReport />} />
-          <Route path='/team' element={<Teams />} />
-          <Route path='/blogs' element={<Blogs />} />
-          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='' element={<HomePage />} />
+          <Route path='/myprojects' element={<MyProjects />} />
+          <Route path='/trending' element={<Trending />} />
+          <Route path='/new' element={<New />} />
+          <Route path='/all' element={<All />} />
+          <Route path='/createprojectpage' element={<CreateProjectPage />} />
         </Routes>
       </Router>
       <button id="walletButton" onClick={connectWalletPressed}>
