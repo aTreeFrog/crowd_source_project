@@ -134,5 +134,10 @@ margin-left: 24px;
 }
 :disabled {
     opacity: 0.4;
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        background: #36A3CF;
+        color: white;
+    }
   }
 `;
